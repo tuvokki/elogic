@@ -12,8 +12,21 @@ const server = express()
 const io = socketIO(server);
 
 io.on('connection', (socket) => {
-  console.log('Client connected');
+  socket.emit('message', `Welcome! id: ${socket.id}`);
+  console.log('Client connected', socket.id);
   socket.on('disconnect', () => console.log('Client disconnected'));
 });
 
 setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
+
+const messages = [
+  'hello world', 'banana', 'freaks everywhere', 'hmmm ... icecream', 'why not?',
+];
+
+function sendMessage() {
+  const returnMsg = messages[Math.floor(Math.random() * messages.length)];
+  console.log(`Sending message "${returnMsg}" to clients.`);
+  return returnMsg;
+}
+
+setInterval(() => io.emit('message', sendMessage()), 5000);

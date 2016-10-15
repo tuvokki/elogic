@@ -1,14 +1,21 @@
 <html>
-  <body>
-    <p id='server-time'></p>
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
+
+<body>
+	<p id='server-time'></p>
+	<p id='server-msg'></p>
+	<script src="/socket.io/socket.io.js"></script>
+	<script>
       var socket = io();
-      var el = document.getElementById('server-time');
+      var timeel = document.getElementById('server-time');
+      var msgel = document.getElementById('server-msg');
 
       socket.on('time', function(timeString) {
-        el.innerHTML = 'Server time: ' + timeString;
+        timeel.innerHTML = 'Server time: ' + timeString;
+      });
+      socket.on('message', function(messageString) {
+        msgel.innerHTML = messageString;
       });
     </script>
-  </body>
+</body>
+
 </html>
