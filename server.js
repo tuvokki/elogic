@@ -10,23 +10,30 @@ const server = express()
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const io = socketIO(server);
+let numberOfClientsConnected = 0;
 
 io.on('connection', (socket) => {
-  socket.emit('message', `Welcome! id: ${socket.id}`);
-  console.log('Client connected', socket.id);
-  socket.on('disconnect', () => console.log('Client disconnected'));
+  numberOfClientsConnected += 1;
+  socket.emit('message', `Welcome! id: ${socket.id} you are client #${numberOfClientsConnected}.`);
+  console.log(`Client #${numberOfClientsConnected} connected`, socket.id);
+  socket.on('disconnect', () => {
+    numberOfClientsConnected -= 1;
+    console.log('Client disconnected');
+  });
 });
 
 setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
 
 const messages = [
-  'hello world', 'banana', 'freaks everywhere', 'hmmm ... icecream', 'why not?',
+  'hello world', 'banana', 'freaks everywhere', 'hmmm ... icecream', 'why not?', 'smile, please, smile',
 ];
 
 function sendMessage() {
-  const returnMsg = messages[Math.floor(Math.random() * messages.length)];
-  console.log(`Sending message "${returnMsg}" to clients.`);
-  return returnMsg;
+  if (numberOfClientsConnected > 0) {
+    const returnMsg = messages[Math.floor(Math.random() * messages.length)];
+    console.log(`Sending message "${returnMsg}" to clients.`);
+    io.emit('message', returnMsg);
+  }
 }
 
-setInterval(() => io.emit('message', sendMessage()), 5000);
+setInterval(() => sendMessage(), 5000);

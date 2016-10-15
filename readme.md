@@ -1,7 +1,14 @@
-# Node.js Socket.io Example
+# This is the start of the ELO-beggers backend service
 
-This example accompanies the
-[Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
-tutorial.
+This backend connects to the Mongo database and emits changes to the frontend when something happens.
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+## Installation:
+
+`npm install`
+
+`npm start`
+
+open [http://localhost:3000/](http://localhost:3000/)
+
+## ToDo:
+- everything except this lame websocket example
