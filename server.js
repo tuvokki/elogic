@@ -12,6 +12,17 @@ const server = express()
 const io = socketIO(server);
 let numberOfClientsConnected = 0;
 
+
+var MongoStream = require('mongo-trigger');
+
+var watcher = new MongoStream({ format: 'pretty' });
+
+// watch the collection
+watcher.watch('test.users', function (event) {
+  // parse the results
+  console.log('something changed:', event);
+});
+
 io.on('connection', (socket) => {
   numberOfClientsConnected += 1;
   socket.emit('message', `Welcome! id: ${socket.id} you are client #${numberOfClientsConnected}.`);
