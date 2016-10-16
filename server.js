@@ -21,6 +21,7 @@ var watcher = new MongoStream({ format: 'pretty' });
 watcher.watch('test.users', function (event) {
   // parse the results
   console.log('something changed:', event);
+  io.emit('user', event.data);
 });
 
 io.on('connection', (socket) => {
@@ -34,17 +35,3 @@ io.on('connection', (socket) => {
 });
 
 setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
-
-const messages = [
-  'hello world', 'banana', 'freaks everywhere', 'hmmm ... icecream', 'why not?', 'smile, please, smile',
-];
-
-function sendMessage() {
-  if (numberOfClientsConnected > 0) {
-    const returnMsg = messages[Math.floor(Math.random() * messages.length)];
-    console.log(`Sending message "${returnMsg}" to clients.`);
-    io.emit('message', returnMsg);
-  }
-}
-
-setInterval(() => sendMessage(), 5000);

@@ -3,17 +3,22 @@
 <body>
 	<p id='server-time'></p>
 	<p id='server-msg'></p>
+	<p id='server-usr'></p>
 	<script src="/socket.io/socket.io.js"></script>
 	<script>
       var socket = io();
       var timeel = document.getElementById('server-time');
       var msgel = document.getElementById('server-msg');
+      var usrel = document.getElementById('server-usr');
 
       socket.on('time', function(timeString) {
         timeel.innerHTML = 'Server time: ' + timeString;
       });
       socket.on('message', function(messageString) {
         msgel.innerHTML = messageString;
+      });
+      socket.on('user', function(userData) {
+        usrel.innerHTML = userData.name + ' added.';
       });
     </script>
 </body>
