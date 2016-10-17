@@ -16,14 +16,14 @@ var MongoStream = require('mongo-trigger');
 
 // print some debug info first
 console.log(
-  'connectionString:', process.env.MONGOLAB_URI,
+  'connectionString:', process.env.MONGODB_URI,
   'replSet:', process.env.REPL_SET,
   'dbName:', process.env.DB_NAME
 );
 
 var watcher = new MongoStream({
   format: 'pretty',
-  connectionString: process.env.MONGOLAB_URI,
+  connectionString: process.env.MONGODB_URI,
   replSet: process.env.REPL_SET
 });
 
