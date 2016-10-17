@@ -12,7 +12,6 @@ const server = express()
 const io = socketIO(server);
 let numberOfClientsConnected = 0;
 
-
 var MongoStream = require('mongo-trigger');
 
 var watcher = new MongoStream({ format: 'pretty' });

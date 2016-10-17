@@ -18,7 +18,7 @@
         msgel.innerHTML = messageString;
       });
       socket.on('user', function(userData) {
-        usrel.innerHTML = userData.name + ' added.';
+        usrel.innerHTML += userData.name + ' added.';
       });
     </script>
 </body>
