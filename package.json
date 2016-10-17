@@ -14,7 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "4.13.4",
-    "mongo-trigger": "^0.1.5",
+    "mongo-trigger": "git+https://git@github.com/tuvokki/mongo-trigger.git",
     "socket.io": "1.4.6"
   },
   "devDependencies": {

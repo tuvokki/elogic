@@ -14,10 +14,13 @@ let numberOfClientsConnected = 0;
 
 var MongoStream = require('mongo-trigger');
 
-var watcher = new MongoStream({ format: 'pretty' });
+var watcher = new MongoStream({
+  format: 'pretty',
+  connectionString: process.env.MONGOLAB_URI
+});
 
 // watch the collection
-watcher.watch('test.users', function (event) {
+watcher.watch(process.env.DB_NAME + '.lalala', function (event) {
   // parse the results
   console.log('something changed:', event);
   io.emit('user', event.data);
