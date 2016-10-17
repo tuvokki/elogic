@@ -16,7 +16,8 @@ var MongoStream = require('mongo-trigger');
 
 var watcher = new MongoStream({
   format: 'pretty',
-  connectionString: process.env.MONGOLAB_URI
+  connectionString: process.env.MONGOLAB_URI,
+  replSet: process.env.REPL_SET
 });
 
 // watch the collection
